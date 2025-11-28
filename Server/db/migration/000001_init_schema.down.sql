@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS seckill_events;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS users;
+
