@@ -21,7 +21,10 @@ func main() {
 	}
 	// 初始化 SQLC 的 Store (我们的数据库管家)
 	store := db.New(conn)
-	server := api.NewServer(store)
+	server, err := api.NewServer(config, store)
+	if err != nil {
+		log.Fatal("cannot create server:", err)
+	}
 
 	log.Println("Server starting at", config.ServerAddress)
 	err = server.Start(config.ServerAddress)
