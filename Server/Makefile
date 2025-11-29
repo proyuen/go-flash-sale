@@ -31,8 +31,11 @@ migratedown1:
 sqlc:
 	sqlc generate
 
+server:
+	go run cmd/api/main.go
 
 
 
-.PHONY: up dowv new_migration migrateup migratedown migrateup1 migratedown1 sqlc
+
+.PHONY: up dowv new_migration migrateup migratedown migrateup1 migratedown1 sqlc server
 
