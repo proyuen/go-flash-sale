@@ -15,6 +15,11 @@ type Service interface {
 	CreateUser(ctx context.Context, req CreateUserRequest) (UserResponse, error)
 	LoginUser(ctx context.Context, req LoginUserRequest) (LoginUserResponse, error)
 	GetUser(ctx context.Context, username string) (UserResponse, error)
+
+	// Product methods
+	CreateProduct(ctx context.Context, req CreateProductRequest) (ProductResponse, error)
+	ListProducts(ctx context.Context, req ListProductsRequest) ([]ProductResponse, error)
+	GetProduct(ctx context.Context, id int64) (ProductResponse, error)
 }
 
 type service struct {
@@ -54,4 +59,25 @@ type LoginUserRequest struct {
 type LoginUserResponse struct {
 	AccessToken string
 	User        UserResponse
+}
+
+type ProductResponse struct {
+	ID          int64     `json:"id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	ImageUrl    string    `json:"image_url"`
+	Price       string    `json:"price"`
+	CreatedAt   time.Time `json:"created_at"`
+}
+
+type CreateProductRequest struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	ImageUrl    string `json:"image_url"`
+	Price       string `json:"price"`
+}
+
+type ListProductsRequest struct {
+	PageID   int32 `json:"page_id"`
+	PageSize int32 `json:"page_size"`
 }

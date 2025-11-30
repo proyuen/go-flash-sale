@@ -23,6 +23,10 @@ func NewServer(config util.Config, service service.Service) (*Server, error) {
 	router.POST("/users/login", server.loginUser)
 	router.GET("/users/:username", server.getUser)
 
+	router.POST("/products", server.createProduct)
+	router.GET("/products/:id", server.getProduct)
+	router.GET("/products", server.listProducts)
+
 	server.router = router
 	return server, nil
 }
