@@ -1,30 +1,21 @@
 package api
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
-	"github.com/proyuen/flashSale/Server/internal/db"
-	"github.com/proyuen/flashSale/Server/internal/token"
+	"github.com/proyuen/flashSale/Server/internal/service"
 	"github.com/proyuen/flashSale/Server/internal/util"
 )
 
 type Server struct {
-	store      *db.Queries
-	router     *gin.Engine
-	config     util.Config
-	tokenMaker token.Maker
+	service service.Service
+	router  *gin.Engine
+	config  util.Config
 }
 
-func NewServer(config util.Config, store *db.Queries) (*Server, error) {
-	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
-	if err != nil {
-		return nil, fmt.Errorf("cannot create token maker: %w", err)
-	}
+func NewServer(config util.Config, service service.Service) (*Server, error) {
 	server := &Server{
-		store:      store,
-		config:     config,
-		tokenMaker: tokenMaker,
+		service: service,
+		config:  config,
 	}
 	router := gin.Default()
 
